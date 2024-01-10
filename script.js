@@ -16,7 +16,32 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
-const locations = [ //locations array
+const weapons = [ //this array hold objects
+  {
+    name: "stick", //object propertie 1
+    power: 5,  //object propertie 2
+
+  },
+
+  {
+    name: "dagger",
+    power: 30,
+
+  },
+  
+  {
+    name: "claw hammer",
+    power: 50,
+
+  },
+
+  {
+    name: "sword",
+    power: 100,
+
+  }
+];
+const locations = [ 
     {
         name: "town square", //object key:"value"
         "button text": ["Go to store", "Go to cave", "Fight dragon"], //array of strings
@@ -76,10 +101,20 @@ function buyHealth() {
   health += 10; // this is a compound assignment same thing as 'health = health + 10',  
   goldText.innerText = gold; //This will replace whatever text is currently inside the goldText element with the value of gold variable
   healthText.innerText = health;
+ } else 
+ text.innerText = "You do not have enough gold to buy health."
+ {
  }
 }
 
-function buyWeapon() {}
+function buyWeapon() {
+  if(gold >= 30){
+    gold -= 30;
+    currentWeapon +=1;
+
+    
+  }
+}
 
 function fightSlime(){
 
