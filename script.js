@@ -16,19 +16,25 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
-const locations = [
+const locations = [ //locations array
     {
-        name: "town square", 
-        "button text": ["Go to store", "Go to cave", "Fight dragon"],
-        "button functions":[goStore, goCave, fightDragon],
-        "text":"You are in the town square. You see a sign that says \"Store\"."
+        name: "town square", //object key:"value"
+        "button text": ["Go to store", "Go to cave", "Fight dragon"], //array of strings
+        "button functions":[goStore, goCave, fightDragon], //array with variables
+        "text":"You are in the town square. You see a sign that says \"Store\"." 
     },
     {
-        name: "store",
+        name: "store", 
         "button text": ["Buy 10 health (10 gold)", "Buy weapon (30 gold)", "Go to town square"],
         "button functions":[buyHealth, buyWeapon, goTown],
         "text":"You enter the store."
-    }
+    },
+    {
+      name: "cave",
+      "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+      "button functions":[fightSlime, fightBeast, goTown], 
+      "text":"You enter the cave. You see some monsters."
+  }
 ];
 
 // initialize buttons
@@ -37,7 +43,7 @@ button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location){
-  button1.innerText = location["button text"][0];
+  button1.innerText = location["button text"][0]; //index location
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
   button1.onclick = location["button functions"][0];
@@ -46,9 +52,9 @@ function update(location){
   text.innerText = location.text;
     
 }
-
+//functions
 function goTown() {
-    update(locations[0]);
+    update(locations[0]); // bracket notation valion, acessed by index, indices start at 0 - this is called zero-based indexing
 
 }
 
@@ -57,13 +63,27 @@ function goStore() {
 }
 
 function goCave() {
-  console.log("Going to cave.");
+  update(locations[2]);
 }
 
 function fightDragon() {
   console.log("Fighting dragon.");
 }
 
-function buyHealth() {}
+function buyHealth() {
+ if("condition"){ //if statement to run the code conditionally 
+  gold -= 10; //changes the value of gold variable 
+  health += 10; // this is a compound assignment same thing as 'health = health + 10',  
+  goldText.innerText = gold; //This will replace whatever text is currently inside the goldText element with the value of gold variable
+  healthText.innerText = health;
+ }
+}
 
 function buyWeapon() {}
+
+function fightSlime(){
+
+}
+function fightBeast(){
+
+}
