@@ -71,7 +71,7 @@ function fightDragon() {
 }
 
 function buyHealth() {
- if("condition"){ //if statement to run the code conditionally 
+ if (gold >= 10){ //if statement to run the code conditionally 
   gold -= 10; //changes the value of gold variable 
   health += 10; // this is a compound assignment same thing as 'health = health + 10',  
   goldText.innerText = gold; //This will replace whatever text is currently inside the goldText element with the value of gold variable
