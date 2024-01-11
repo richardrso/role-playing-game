@@ -111,6 +111,7 @@ function buyWeapon() {
     gold -= 30;
     currentWeapon++; //increase currentWeapon by 1
     goldText.innerText = gold;
+    let newWeapon = weapons[currentWeapon]; //bracket notation to access an object within the weapons array, accessing the property or index by the value of that variable.
     text.innerText = "You now have a new weapon.";
   }
 }
