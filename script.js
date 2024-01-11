@@ -85,6 +85,18 @@ const locations = [
     "button text": ["Attack", "Dodge", "Run"],
     "button functions": [attack, dodge, goTown],
     text: "You are fighting a monster.",
+  },
+  {
+    name: "kill monster",
+    "button text": ["Go to town square", "Go to town square", "Go to town square"],
+    "button functions": [goTown, goTown, goTown],
+    text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.', //single quotes to the string and double quotes to include quotation marks inside a string.
+  },
+  {
+    name: "lose",
+    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+    "button functions": [restart, restart, restart],
+    text: "You die. ☠️"
   }
 ];
 
@@ -94,6 +106,7 @@ button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location) {
+  monsterStats.style.display = "none"; //monster's stat box should no longer display.
   button1.innerText = location["button text"][0]; //index location
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
@@ -199,16 +212,38 @@ function attack(){
   }
   else if(monsterHealth <= 0){
     defeatMonster();
-
+    if(fighting === 2){
+    } else {
+    }
   }
 }
 function defeatMonster(){
-  gold += Math.floor(monsters[fighting].level * 6.7);
+  gold += Math.floor(monsters[fighting].level * 6.7); //multiplies the monster's level by 6.7 to calculate the amount of gold the player should receive, and then rounds down to the nearest whole number using Math.floor
+  xp += monsters[fighting].level; //increase the player's experience points (xp
+  goldText.innerText= gold;
+  xpText.innerText= xp;
+  update(locations[4]);
 }
 
-function lose(){}
+function lose(){
+  update(locations[5]);
+}
 
 function dodge(){
   text.innerText = "You dodge the attack from the "+monsters[fighting].name+"";
+
+}
+
+function restart(){
+xp = 0;
+health = 100;
+gold = 50;
+currentWeapon = 0;
+fighting;
+inventory = ["stick"];
+goldText.innerText = gold;
+healthText.innerText = health;
+xpText.innerText = xp;
+goTown();
 
 }
