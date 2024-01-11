@@ -107,12 +107,35 @@ function buyHealth() {
 }
 
 function buyWeapon() {
-  if (gold >= 30) {
-    gold -= 30;
-    currentWeapon++; //increase currentWeapon by 1
+  if (currentWeapon < weapons.length - 1) {
+    //check if currentWeapon is less than the length of the weapons array
+    if (gold >= 30) {
+      gold -= 30;
+      currentWeapon++; //increase currentWeapon by 1
+      goldText.innerText = gold;
+      let newWeapon = weapons[currentWeapon].name; //bracket notation to access an object within the weapons array, accessing the property or index by the value of that variable.
+      text.innerText = "You now have a " + newWeapon + "."; //string with the concatenation operator +
+      inventory.push(newWeapon); //Add newWeapon to the end of the inventory array using the push() method.
+      text.innerText += " In your inventory you have: " + inventory + " "; //add text to the end of text.innerText and add the contents of inventory to the string using concatenation operator
+    } else text.innerText = "You do not have enough gold to buy a weapon.";
+    {
+    }
+  } else text.innerText = "You already have the most powerful weapon!";
+  button2.innerText = "Sell weapon for 15 gold";
+  button2.onclick = sellWeapon;
+  {
+  }
+}
+
+function sellWeapon(){
+ 
+  if (inventory.length > 1){
+    gold += 15;
     goldText.innerText = gold;
-    let newWeapon = weapons[currentWeapon]; //bracket notation to access an object within the weapons array, accessing the property or index by the value of that variable.
-    text.innerText = "You now have a new weapon.";
+    let currentWeapon = inventory.shift(); //shift() method on an array removes the first element in the array and returns //using the let keyword instead of var, the new currentWeapon is scoped only to this if statement
+    text.innerText = "You sold a "+currentWeapon+".";
+    text.innerText += " In your inventory you have: "+inventory+" ";
+    
   }
 }
 
