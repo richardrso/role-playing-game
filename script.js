@@ -135,6 +135,8 @@ function sellWeapon(){
     let currentWeapon = inventory.shift(); //shift() method on an array removes the first element in the array and returns //using the let keyword instead of var, the new currentWeapon is scoped only to this if statement
     text.innerText = "You sold a "+currentWeapon+".";
     text.innerText += " In your inventory you have: "+inventory+" ";
+  } else text.innerText = "Don't sell your only weapon!";
+  {
     
   }
 }
