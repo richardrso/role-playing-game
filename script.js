@@ -97,6 +97,12 @@ const locations = [
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
     "button functions": [restart, restart, restart],
     text: "You die. ☠️"
+  },
+  {
+    name: "win",
+    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+    "button functions": [restart, restart, restart],
+    text: "You defeat the dragon! YOU WIN THE GAME! 🎉"
   }
 ];
 
@@ -203,20 +209,30 @@ function goFight(){
 function attack(){
   text.innerText = "The "+monsters[fighting].name+" attacks.";
   text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
-  health -= monsters[fighting].level; //decreases the player's health by the level of the current monster
-  monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random()* xp) + 1; // generates a random number  between 1 and the value of xp | decreases the monster's health by the power of the current weapon plus a random bonus.
+  health -= getMonsterAttackValue(monsters[fighting].level); //sets health equal to health minus the return value of the getMonsterAttackValue function, and passes the level of the monster as an argument.
+  if(isMonsterHit()){
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random()* xp) + 1; // generates a random number  between 1 and the value of xp | decreases the monster's health by the power of the current weapon plus a random bonus.
+  } else { 
+    text.innerText += " You miss.";
+  
+  }
   healthText.innerText = health; // show the player's current health.
   monsterHealthText.innerText = monsterHealth; // show the monster's current health.
   if (health <= 0) {
     lose();
   }
   else if(monsterHealth <= 0){
-    defeatMonster();
-    if(fighting === 2){
-    } else {
-    }
+    fighting === 2 ? winGame() : defeatMonster(); //strict equality (===) operator to - check if the values are equal and if they are the same data type
+  // if-else statement changed to a ternary:can be used as a one-line if-else statement
   }
 }
+
+function getMonsterAttackValue(level){
+  const hit = (level * 5) - (Math.floor(Math.random() *xp)); //set the monster's attack to five times their level minus a random number between 0 and the player's xp.
+  console.log(hit); //Log the value of hit to the console to use in debugging
+  return hit > 0? hit:0; //tanary operadtor: returns hit if hit is greater than 0, or returns 0 if it is not.
+}
+
 function defeatMonster(){
   gold += Math.floor(monsters[fighting].level * 6.7); //multiplies the monster's level by 6.7 to calculate the amount of gold the player should receive, and then rounds down to the nearest whole number using Math.floor
   xp += monsters[fighting].level; //increase the player's experience points (xp
@@ -227,6 +243,10 @@ function defeatMonster(){
 
 function lose(){
   update(locations[5]);
+}
+
+function winGame(){
+  update(locations[6]);
 }
 
 function dodge(){
